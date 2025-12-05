@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PaletteRow from './components/PaletteRow';
-import { randomColor } from './utils/color';
+import { randomColor, hexToOklch } from './utils/color';
 
 const STORAGE_KEY = 'oklch-generator-state';
 const STEP_NAMES = ['100', '99', '98', '95', '90', '80', '70', '60', '50', '40', '35', '30', '25', '20', '15', '10', '5', '0'];
+
+// Preset base colors
+const PRESET_COLORS = [
+  '#78787C', '#5B67E8', '#747695', '#9A6588', 
+  '#E20314', '#CD4400', '#937502', '#268F4F', 
+  '#2B8697', '#066CFF', '#5B67E8', '#8747F7', 
+  '#D8027B', '#8747F7', '#9E50C3', '#797784'
+];
 
 function App() {
   // Load initial state from localStorage
@@ -61,6 +69,22 @@ function App() {
     }));
   };
 
+  const loadPresets = () => {
+    const presetPalettes = PRESET_COLORS.map((hex, index) => {
+      const oklch = hexToOklch(hex);
+      if (oklch) {
+        return {
+          id: `preset-${index}`,
+          l: oklch.l,
+          h: oklch.h
+        };
+      }
+      return null;
+    }).filter(Boolean);
+    
+    setPalettes(presetPalettes);
+  };
+
   return (
     <div className="app-container">
       <header className="app-header">
@@ -87,6 +111,11 @@ function App() {
               onChange={(e) => setGlobalChroma(parseFloat(e.target.value))} 
             />
             <span className="value-display">{globalChroma.toFixed(2)}</span>
+          </div>
+          <div className="control-section">
+            <button className="preset-btn" onClick={loadPresets}>
+              Load Presets
+            </button>
           </div>
         </div>
 

@@ -1,9 +1,9 @@
 :root {
-  --bg-color: #ffffff;
-  --text-color: #1e293b;
-  --panel-bg: #f8fafc;
-  --panel-border: #e2e8f0;
-  --accent-color: #3b82f6;
+  --bg-color: #1C1C1D;
+  --text-color: #e5e7eb;
+  --panel-bg: #2a2a2c;
+  --panel-border: #3f3f46;
+  --accent-color: #60a5fa;
   --border-radius: 12px;
   --font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -41,9 +41,71 @@ body {
 }
 
 .app-header p {
-  color: #64748b;
+  color: #9ca3af;
   font-size: 1.1rem;
 }
+
+.global-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--panel-bg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--panel-border);
+}
+
+.control-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-section label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #d1d5db;
+}
+
+.step-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.step-control button {
+  padding: 0.25rem 0.75rem;
+}
+
+.step-control span {
+  min-width: 2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.preset-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.25);
+  margin-top: auto;
+}
+
+.preset-btn:hover {
+  box-shadow: 0 6px 12px rgba(102, 126, 234, 0.35);
+}
+
+.preset-btn:active {
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.25);
+}
+
 
 .palette-container {
   display: flex;
@@ -83,7 +145,7 @@ body {
 .control-group label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #475569;
+  color: #d1d5db;
   min-width: 3rem;
 }
 
@@ -94,9 +156,9 @@ input[type="range"] {
 
 input[type="number"],
 input[type="text"].hex-input {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #1e293b;
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  color: #e5e7eb;
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
 }
@@ -105,7 +167,7 @@ input[type="number"]:focus,
 input[type="text"].hex-input:focus {
   outline: none;
   border-color: var(--accent-color);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
 }
 
 input[type="number"] {
@@ -119,14 +181,14 @@ input[type="text"].hex-input {
 
 .value-display {
   font-family: monospace;
-  color: #64748b;
+  color: #9ca3af;
   min-width: 3ch;
 }
 
 button {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #1e293b;
+  background: #3f3f46;
+  border: 1px solid #52525b;
+  color: #e5e7eb;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
@@ -135,23 +197,23 @@ button {
 }
 
 button:hover {
-  background: #f1f5f9;
-  border-color: #94a3b8;
+  background: #52525b;
+  border-color: #71717a;
 }
 
 .remove-btn {
   margin-left: auto;
   background: transparent;
   border: 1px solid transparent;
-  color: #64748b;
+  color: #9ca3af;
   font-size: 1.5rem;
   padding: 0.25rem 0.75rem;
 }
 
 .remove-btn:hover {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: #fecaca;
-  color: #ef4444;
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #7f1d1d;
+  color: #f87171;
 }
 
 .steps-container {
@@ -229,7 +291,7 @@ button:hover {
 .app-footer {
   margin-top: 4rem;
   text-align: center;
-  color: #94a3b8;
+  color: #6b7280;
   font-size: 0.875rem;
 }
 
@@ -251,15 +313,15 @@ button:hover {
 
 .contrast-input-wrapper label {
   font-size: 0.75rem;
-  color: #64748b;
+  color: #9ca3af;
   font-weight: 600;
 }
 
 .contrast-input-wrapper input {
   width: 50px;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  color: #1e293b;
+  background: #18181b;
+  border: 1px solid #3f3f46;
+  color: #e5e7eb;
   padding: 0.25rem;
   border-radius: 4px;
   text-align: center;
@@ -269,7 +331,7 @@ button:hover {
 .contrast-input-wrapper input:focus {
   border-color: var(--accent-color);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
 }
 
 /* Contrast Indicators */
