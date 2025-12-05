@@ -1,4 +1,4 @@
-import { wcagContrast, converter, formatCss } from 'culori';
+import { wcagContrast, converter, formatCss, formatHex } from 'culori';
 
 const toOklch = converter('oklch');
 
@@ -98,12 +98,22 @@ export const generatePalette = (id, l, c, h, steps = 18, contrastTargets = {}) =
         currentL = 0.97 - (t * 0.9);
       }
     } else {
-      // Calculate lightness: distribute from 0.95 down to 0.10
-      // i=0 -> 0.95 (lightest)
-      // i=steps-1 -> 0.10 (darkest)
-      const t = i / (steps - 1);
-      currentL = 0.97 - (t * 0.9); // 0.97 down to 0.07
+      // Step 1 (index 0) should be white (L=1.0) for 1:1 contrast with white
+      if (i === 0) {
+        currentL = 1.0;
+      } else {
+        // Calculate lightness: distribute from 0.97 down to 0.07
+        // i=1 -> 0.97 (lightest after white)
+        // i=steps-1 -> 0.07 (darkest)
+        const t = i / (steps - 1);
+        currentL = 0.97 - (t * 0.9); // 0.97 down to 0.07
+      }
     }
+    
+    
+    const color = { mode: 'oklch', l: currentL, c, h };
+    const hexCode = formatHex(color);
+    const contrastRatio = wcagContrast(color, '#ffffff');
     
     palette.push({
       id: `${id}-${i}`,
@@ -112,6 +122,8 @@ export const generatePalette = (id, l, c, h, steps = 18, contrastTargets = {}) =
       c: c,
       h: h,
       css: oklch(currentL, c, h),
+      hex: hexCode,
+      contrast: contrastRatio,
       contrastTarget: contrastTargets[i],
       isContrastForced
     });

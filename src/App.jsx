@@ -31,11 +31,46 @@ function App() {
 
   const [steps, setSteps] = useState(initialState?.steps || 18);
   const [globalChroma, setGlobalChroma] = useState(initialState?.globalChroma || 0.15);
-  const [contrastTargets, setContrastTargets] = useState(initialState?.contrastTargets || {});
-  const [palettes, setPalettes] = useState(initialState?.palettes || [
-    { id: 'primary', l: 0.6, h: 260 },
-    { id: 'secondary', l: 0.7, h: 140 },
-  ]);
+  const [contrastTargets, setContrastTargets] = useState(initialState?.contrastTargets || {
+    0: 1,    // Step 100 - Pure white (1:1 with white)
+    1: 1.02,   // Step 99
+    2: 1.04,   // Step 98
+    3: 1.13,   // Step 95
+    4: 1.27,   // Step 90
+    5: 1.68,   // Step 80
+    6: 2.31,   // Step 70
+    7: 3.18,   // Step 60
+    8: 4.52,   // Step 50
+    9: 6.45,   // Step 40
+    10: 7.77,  // Step 35
+    11: 9.39,  // Step 30
+    12: 11.21,  // Step 25
+    13: 13.12,  // Step 20
+    14: 15.26,  // Step 15
+    15: 17.16,  // Step 10
+    16: 18.84,  // Step 5
+    17: 21,  // Step 0
+  });
+  
+  // Default base colors
+  const defaultPalettes = () => {
+    const presetColors = [
+      '#5B67E8', '#747695', '#9A6588', '#E20314', '#CD4400', 
+      '#937502', '#268F4F', '#2B8697', '#066CFF', '#5B67E8', 
+      '#8747F7', '#D8027B', '#8747F7', '#9E50C3', '#797784'
+    ];
+    
+    return presetColors.map((hex, index) => {
+      const oklch = hexToOklch(hex);
+      return {
+        id: `color-${index}`,
+        l: oklch.l,
+        h: oklch.h
+      };
+    });
+  };
+  
+  const [palettes, setPalettes] = useState(initialState?.palettes || defaultPalettes());
 
   // Save state to localStorage whenever it changes
   useEffect(() => {
@@ -111,11 +146,6 @@ function App() {
               onChange={(e) => setGlobalChroma(parseFloat(e.target.value))} 
             />
             <span className="value-display">{globalChroma.toFixed(2)}</span>
-          </div>
-          <div className="control-section">
-            <button className="preset-btn" onClick={loadPresets}>
-              Load Presets
-            </button>
           </div>
         </div>
 

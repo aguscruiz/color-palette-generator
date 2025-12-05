@@ -71,8 +71,11 @@ const PaletteRow = ({ color, globalChroma, steps, contrastTargets, onUpdate, onR
             <div className="step-info">
               <span className="step-value">{step.stepName}</span>
               {step.isContrastForced && <span className="contrast-badge">WCAG</span>}
-              <span className="step-hex" onClick={() => navigator.clipboard.writeText(step.css)}>
-                Copy
+              <span className="step-hex" onClick={() => navigator.clipboard.writeText(step.hex)}>
+                {step.hex}
+              </span>
+              <span className="step-contrast">
+                {step.contrast.toFixed(2)}:1
               </span>
             </div>
           </div>

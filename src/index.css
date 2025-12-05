@@ -267,10 +267,21 @@ button:hover {
   padding: 2px 4px;
   border-radius: 4px;
   pointer-events: auto;
+  font-size: 0.7rem;
 }
 
 .step-hex:hover {
   background: rgba(0, 0, 0, 0.7);
+}
+
+.step-contrast {
+  margin-top: 2px;
+  font-family: monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .add-palette-btn {
